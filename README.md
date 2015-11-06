@@ -1,3 +1,5 @@
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidStreamable-green.svg?style=true)](https://android-arsenal.com/details/1/2738)
+
 <p align="center">
   <img src="https://streamable.com/static/img/logo.png">
 </p>
