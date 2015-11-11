@@ -1,9 +1,9 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidStreamable-green.svg?style=true)](https://android-arsenal.com/details/1/2738)
 
-<p align="center">
+<p align="center" style="margin: 0">
   <img src="https://streamable.com/static/img/logo.png">
 </p>
-<h1 align="center">AndroidStreamable</h1>
+<h1 align="center" style="margin-top: 0">AndroidStreamable</h1>
 
 **Unofficial** https://streamable.com API Wrapper for Android.
 

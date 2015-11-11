@@ -1,5 +1,6 @@
 package cafe.adriel.androidstreamable.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -14,30 +15,25 @@ public class Video {
 	private List<VideoFile> files;
 	private List<String> formats;
 
-	public static Video fromJson(JSONObject json){
-		try {
-			Video video = new Video();
-			video.setUrl(json.getString("url"));
-			video.setUrlRoot(json.getString("url_root"));
-			video.setThumbnailUrl(json.getString("thumbnail_url"));
-			video.setMessage(json.getString("message"));
-			video.setStatus(json.getInt("status"));
-			video.setFormats(new ArrayList<String>());
-			video.setFiles(new ArrayList<VideoFile>());
-			for(int i = 0; i < json.getJSONArray("formats").length(); i++){
-				String format = json.getJSONArray("formats").getString(i);
-				video.getFormats().add(format);
-			}
-			for(String format : video.getFormats()){
-				JSONObject videoFileJson = json.getJSONObject("files").getJSONObject(format);
-				VideoFile videoFile = VideoFile.fromJson(videoFileJson, format);
-				video.getFiles().add(videoFile);
-			}
-			return video;
-		} catch (Exception e){
-			e.printStackTrace();
-			return null;
+	public static Video fromJson(JSONObject json) throws JSONException {
+		Video video = new Video();
+		video.setUrl(json.getString("url"));
+		video.setUrlRoot(json.getString("url_root"));
+		video.setThumbnailUrl(json.getString("thumbnail_url"));
+		video.setMessage(json.getString("message"));
+		video.setStatus(json.getInt("status"));
+		video.setFormats(new ArrayList<String>());
+		video.setFiles(new ArrayList<VideoFile>());
+		for(int i = 0; i < json.getJSONArray("formats").length(); i++){
+			String format = json.getJSONArray("formats").getString(i);
+			video.getFormats().add(format);
 		}
+		for(String format : video.getFormats()){
+			JSONObject videoFileJson = json.getJSONObject("files").getJSONObject(format);
+			VideoFile videoFile = VideoFile.fromJson(videoFileJson, format);
+			video.getFiles().add(videoFile);
+		}
+		return video;
 	}
 
 	public String getUrl() {

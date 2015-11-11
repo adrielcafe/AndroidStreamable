@@ -4,9 +4,11 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import cafe.adriel.androidstreamable.callback.NewVideoCallback;
@@ -18,6 +20,11 @@ import cafe.adriel.androidstreamable.model.Video;
 import cz.msebera.android.httpclient.Header;
 
 public abstract class AndroidStreamable {
+	public static final int STATUS_VIDEO_IS_BEING_UPLOADED              = 0;
+	public static final int STATUS_VIDEO_IS_BEING_PROCESSED             = 1;
+	public static final int STATUS_VIDEO_HAS_AT_LEAST_ONE_FILE_READY    = 2;
+	public static final int STATUS_VIDEO_IS_UNAVAILABLE_DUE_TO_AN_ERROR = 3;
+
 	private static final String STREAMABLE_BASE_URL                     = "https://api.streamable.com";
 	private static final String STREAMABLE_UPLOAD_VIDEO_ENDPOINT        = "/upload";
 	private static final String STREAMABLE_IMPORT_VIDEO_ENDPOINT        = "/import?url=";
@@ -25,14 +32,8 @@ public abstract class AndroidStreamable {
 	private static final String STREAMABLE_RETRIEVE_AUTH_USER_ENDPOINT  = "/me";
 	private static final String STREAMABLE_RETRIEVE_USER_ENDPOINT       = "/users/";
 
-	public static final int STATUS_VIDEO_IS_BEING_UPLOADED              = 0;
-	public static final int STATUS_VIDEO_IS_BEING_PROCESSED             = 1;
-	public static final int STATUS_VIDEO_HAS_AT_LEAST_ONE_FILE_READY    = 2;
-	public static final int STATUS_VIDEO_IS_UNAVAILABLE_DUE_TO_AN_ERROR = 3;
-
-	private static final int DEFAULT_CONNECT_TIMEOUT = 10 * 1000;
-
 	private static final AsyncHttpClient REST_CLIENT = new AsyncHttpClient();
+	private static final int DEFAULT_CONNECT_TIMEOUT = 10 * 1000;
 
 	private static String username, password;
 	private static int timeout = DEFAULT_CONNECT_TIMEOUT;
@@ -70,8 +71,8 @@ public abstract class AndroidStreamable {
 					JSONObject json = new JSONObject(new String(responseBody));
 					Video newVideo = Video.fromJson(json);
 					callback.onSuccess(statusCode, newVideo);
-				} catch (Exception e){
-					e.printStackTrace();
+				} catch (JSONException e){
+					callback.onFailure(statusCode, e);
 				}
 			}
 			@Override
@@ -94,8 +95,8 @@ public abstract class AndroidStreamable {
 					JSONObject json = new JSONObject(new String(responseBody));
 					NewVideo newVideo = NewVideo.fromJson(json);
 					callback.onSuccess(statusCode, newVideo);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (JSONException e){
+					callback.onFailure(statusCode, e);
 				}
 			}
 
@@ -107,23 +108,15 @@ public abstract class AndroidStreamable {
 	}
 
 	public static void uploadVideo(InputStream videoInputStream, NewVideoCallback callback){
-		try {
-			RequestParams params = new RequestParams();
-			params.put("file", videoInputStream);
-			uploadVideo(params, callback);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+		RequestParams params = new RequestParams();
+		params.put("file", videoInputStream);
+		uploadVideo(params, callback);
 	}
 
-	public static void uploadVideo(File videoFile, NewVideoCallback callback) {
-		try {
-			RequestParams params = new RequestParams();
-			params.put("file", videoFile);
-			uploadVideo(params, callback);
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+	public static void uploadVideo(File videoFile, NewVideoCallback callback) throws FileNotFoundException {
+		RequestParams params = new RequestParams();
+		params.put("file", videoFile);
+		uploadVideo(params, callback);
 	}
 
 	private static void uploadVideo(RequestParams params, final NewVideoCallback callback) {
@@ -139,8 +132,8 @@ public abstract class AndroidStreamable {
 					JSONObject json = new JSONObject(new String(responseBody));
 					NewVideo newVideo = NewVideo.fromJson(json);
 					callback.onSuccess(statusCode, newVideo);
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (JSONException e){
+					callback.onFailure(statusCode, e);
 				}
 			}
 
@@ -164,8 +157,8 @@ public abstract class AndroidStreamable {
 					JSONObject json = new JSONObject(new String(responseBody));
 					User user = User.fromJson(json);
 					callback.onSuccess(statusCode, user);
-				} catch (Exception e){
-					e.printStackTrace();
+				} catch (JSONException e){
+					callback.onFailure(statusCode, e);
 				}
 			}
 			@Override
@@ -188,8 +181,8 @@ public abstract class AndroidStreamable {
 					JSONObject json = new JSONObject(new String(responseBody));
 					User user = User.fromJson(json);
 					callback.onSuccess(statusCode, user);
-				} catch (Exception e){
-					e.printStackTrace();
+				} catch (JSONException e){
+					callback.onFailure(statusCode, e);
 				}
 			}
 			@Override

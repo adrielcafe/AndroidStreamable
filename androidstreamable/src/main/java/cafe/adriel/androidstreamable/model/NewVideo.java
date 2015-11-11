@@ -1,21 +1,17 @@
 package cafe.adriel.androidstreamable.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NewVideo {
 	private String shortCode;
 	private int status;
 
-	public static NewVideo fromJson(JSONObject json){
-		try {
-			NewVideo newVideo = new NewVideo();
-			newVideo.setShortCode(json.getString("shortcode"));
-			newVideo.setStatus(json.getInt("status"));
-			return newVideo;
-		} catch (Exception e){
-			e.printStackTrace();
-			return null;
-		}
+	public static NewVideo fromJson(JSONObject json) throws JSONException {
+		NewVideo newVideo = new NewVideo();
+		newVideo.setShortCode(json.getString("shortcode"));
+		newVideo.setStatus(json.getInt("status"));
+		return newVideo;
 	}
 
 	public String getShortCode() {

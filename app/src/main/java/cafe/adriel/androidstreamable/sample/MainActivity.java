@@ -25,24 +25,36 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Optional (uncomment and set your credentials)
-		// https://streamable.com/documentation#authentication
-		//AndroidStreamable.setCredentials("_USERNAME_", "_PASSWORD_");
+		/*
+			Optional (uncomment and set your credentials to use)
+			Doc: https://streamable.com/documentation#authentication
+		*/
+		//AndroidStreamable.setCredentials("YOUR_STREAMABLE_USERNAME", "YOUR_STREAMABLE_PASSWORD");
 
-		// Only works with credentials (uncomment to use)
-		// https://streamable.com/documentation#retrieve-authenticated-user
-		//exampleAuthUser();
+		/*
+			Only works with credentials (uncomment to use)
+			Doc: https://streamable.com/documentation#retrieve-authenticated-user
+		*/
+		//exampleGetAuthUser();
 
-		// https://streamable.com/documentation#retrieve-user
-		exampleUser();
+		/*
+			Doc: https://streamable.com/documentation#retrieve-user
+		*/
+		exampleGetUser();
 
-		// https://streamable.com/documentation#retrieve-video
+		/*
+			Doc: https://streamable.com/documentation#retrieve-video
+		*/
 		exampleGetVideo();
 
-		// https://streamable.com/documentation#import-video-from-url
+		/*
+			Doc: https://streamable.com/documentation#import-video-from-url
+		*/
 		exampleImportVideo();
 
-		// https://streamable.com/documentation#upload-video-file
+		/*
+			Doc: https://streamable.com/documentation#upload-video-file
+		*/
 		exampleUploadVideo();
 	}
 
@@ -93,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 	}
 
-	private void exampleAuthUser(){
+	private void exampleGetAuthUser(){
 		AndroidStreamable.getAuthUser(new UserCallback() {
 			@Override
 			public void onSuccess(int statusCode, User user) {
@@ -106,8 +118,9 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-	private void exampleUser(){
-		AndroidStreamable.getUser("streamable", new UserCallback() {
+	private void exampleGetUser(){
+		String username = "streamable";
+		AndroidStreamable.getUser(username, new UserCallback() {
 			@Override
 			public void onSuccess(int statusCode, User user) {
 				Log.i("USER", GSON.toJson(user));

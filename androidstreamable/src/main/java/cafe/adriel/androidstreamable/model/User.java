@@ -1,5 +1,6 @@
 package cafe.adriel.androidstreamable.model;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class User {
@@ -8,18 +9,13 @@ public class User {
 	private String photoUrl;
 	private boolean isPrivate;
 
-	public static User fromJson(JSONObject json){
-		try {
-			User user = new User();
-			user.setName(json.getString("user_name"));
-			user.setBio(json.getString("bio"));
-			user.setPhotoUrl(json.getString("photo_url"));
-			user.setIsPrivate(json.getBoolean("is_private"));
-			return user;
-		} catch (Exception e){
-			e.printStackTrace();
-			return null;
-		}
+	public static User fromJson(JSONObject json) throws JSONException {
+		User user = new User();
+		user.setName(json.getString("user_name"));
+		user.setBio(json.getString("bio"));
+		user.setPhotoUrl(json.getString("photo_url"));
+		user.setIsPrivate(json.getBoolean("is_private"));
+		return user;
 	}
 
 	public String getName() {
