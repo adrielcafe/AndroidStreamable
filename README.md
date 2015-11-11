@@ -124,7 +124,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidStreamable:0.1'
+  compile 'com.github.adrielcafe:AndroidStreamable:0.2'
 }
 ```
 
