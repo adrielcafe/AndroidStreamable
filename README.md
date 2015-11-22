@@ -112,10 +112,10 @@ switch (video.getStatus()){
 ```
 
 ## Example
-Check out the [app module](https://github.com/adrielcafe/AndroidStreamable/tree/master/app).
+Check out the [app module](https://github.com/adrielcafe/AndroidStreamable/tree/master/app). Watch the **console log** to see this lib in action.
 
 ## Import to your project
-Into your module build.gradle:
+Put this into your module `app/build.gradle`:
 ```
 repositories {
   maven {
@@ -124,7 +124,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidStreamable:0.2'
+  compile 'com.github.adrielcafe:AndroidStreamable:0.2@aar'
 }
 ```
 
