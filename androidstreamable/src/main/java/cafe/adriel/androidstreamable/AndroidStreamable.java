@@ -27,7 +27,7 @@ public abstract class AndroidStreamable {
 
 	private static final String STREAMABLE_BASE_URL                     = "https://api.streamable.com";
 	private static final String STREAMABLE_UPLOAD_VIDEO_ENDPOINT        = "/upload";
-	private static final String STREAMABLE_IMPORT_VIDEO_ENDPOINT        = "/import?url=";
+	private static final String STREAMABLE_IMPORT_VIDEO_ENDPOINT        = "/import?url=%s&title=%s";
 	private static final String STREAMABLE_RETRIEVE_VIDEO_ENDPOINT      = "/videos/";
 	private static final String STREAMABLE_RETRIEVE_AUTH_USER_ENDPOINT  = "/me";
 	private static final String STREAMABLE_RETRIEVE_USER_ENDPOINT       = "/users/";
@@ -82,8 +82,8 @@ public abstract class AndroidStreamable {
 		});
 	}
 
-	public static void importVideo(String videoUrl, final NewVideoCallback callback){
-		String url = STREAMABLE_BASE_URL + STREAMABLE_IMPORT_VIDEO_ENDPOINT + videoUrl;
+	public static void importVideo(String videoUrl, String title, final NewVideoCallback callback){
+		String url = String.format(STREAMABLE_BASE_URL + STREAMABLE_IMPORT_VIDEO_ENDPOINT, videoUrl, title);
 		if(AndroidStreamableUtil.isNotEmpty(username) && AndroidStreamableUtil.isNotEmpty(password)) {
 			REST_CLIENT.setBasicAuth(username, password);
 		}
@@ -107,15 +107,17 @@ public abstract class AndroidStreamable {
 		});
 	}
 
-	public static void uploadVideo(InputStream videoInputStream, NewVideoCallback callback){
+	public static void uploadVideo(InputStream videoInputStream, String title, NewVideoCallback callback){
 		RequestParams params = new RequestParams();
 		params.put("file", videoInputStream);
+		params.put("title", title);
 		uploadVideo(params, callback);
 	}
 
-	public static void uploadVideo(File videoFile, NewVideoCallback callback) throws FileNotFoundException {
+	public static void uploadVideo(File videoFile, String title, NewVideoCallback callback) throws FileNotFoundException {
 		RequestParams params = new RequestParams();
 		params.put("file", videoFile);
+		params.put("title", title);
 		uploadVideo(params, callback);
 	}
 

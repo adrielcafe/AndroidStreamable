@@ -115,7 +115,7 @@ switch (video.getStatus()){
 Check out the [app module](https://github.com/adrielcafe/AndroidStreamable/tree/master/app). Watch the **console log** to see this lib in action.
 
 ## Import to your project
-Put this into your module `app/build.gradle`:
+Put this into your `app/build.gradle`:
 ```
 repositories {
   maven {
@@ -124,7 +124,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidStreamable:0.2@aar'
+  compile 'com.github.adrielcafe:AndroidStreamable:0.3@aar'
 }
 ```
 
@@ -138,6 +138,20 @@ https://streamable.com/documentation
 *"[ExoPlayer](http://developer.android.com/intl/pt-br/guide/topics/media/exoplayer.html) is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet. ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks. Unlike the MediaPlayer API, ExoPlayer is easy to customize and extend, and can be updated through Play Store application updates."*
 
 (Source: [GitHub's ExoPlayer page](https://github.com/google/ExoPlayer))
+
+## Changelog
+### 0.3
+* Add `title` for uploaded and imported videos (new in official API)
+* Remove `Video.url_root` (no longer available by official API)
+* Remove `Video.formats` (no longer available by official API)
+
+### 0.2
+* Replace try catch by throws
+* Add `callback.onFailure()` on catches
+
+### 0.1
+* Supports authless and authenticated users
+* Supports all 5 official API methods: Get Video, Import Video, Upload Video, Get User, Get Authenticated User
 
 ## License
 ```

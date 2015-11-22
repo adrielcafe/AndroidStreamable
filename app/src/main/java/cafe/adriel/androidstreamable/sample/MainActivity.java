@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
 
 	private void exampleImportVideo(){
 		String url = "https://archive.org/download/Windows7WildlifeSampleVideo/Wildlife.wmv";
-		AndroidStreamable.importVideo(url, new NewVideoCallback() {
+		String title = "Import Example";
+		AndroidStreamable.importVideo(url, title, new NewVideoCallback() {
 			@Override
 			public void onSuccess(int statusCode, NewVideo newVideo) {
 				Log.i("IMPORTED VIDEO", GSON.toJson(newVideo));
@@ -88,11 +89,12 @@ public class MainActivity extends AppCompatActivity {
 
 	private void exampleUploadVideo(){
 		InputStream is = null;
+		String title = "Upload Example";
 		try {
 			is = getAssets().open("dp56.mp4");
 		} catch (Exception e){ }
 		if(is != null) {
-			AndroidStreamable.uploadVideo(is, new NewVideoCallback() {
+			AndroidStreamable.uploadVideo(is, title, new NewVideoCallback() {
 				@Override
 				public void onSuccess(int statusCode, NewVideo newVideo) {
 					Log.i("UPLOADED VIDEO", GSON.toJson(newVideo));
