@@ -19,9 +19,10 @@ AndroidStreamable.setCredentials("YOUR_STREAMABLE_USERNAME", "YOUR_STREAMABLE_PA
 Uploads a [Video](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) file to Streamable. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
 ```java
 InputStream is = getAssets().open("video.mp4");
-// or
-File file = new File("video.mp4");
-AndroidStreamable.uploadVideo(is /* or file */, new NewVideoCallback() {
+/* or
+File file = new File("video.mp4"); */
+String title = "Upload Example";
+AndroidStreamable.uploadVideo(is /* or file */, title, new NewVideoCallback() {
 	@Override
 	public void onSuccess(int statusCode, NewVideo newVideo) {
 		// :D
@@ -37,7 +38,8 @@ AndroidStreamable.uploadVideo(is /* or file */, new NewVideoCallback() {
 Imports a [Video](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) to Streamable from a URL. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
 ```java
 String url = "http://site.com/video.mp4";
-AndroidStreamable.importVideo(url, new NewVideoCallback() {
+String title = "Import Example";
+AndroidStreamable.importVideo(url, title, new NewVideoCallback() {
 	@Override
 	public void onSuccess(int statusCode, NewVideo newVideo) {
 		// :D
