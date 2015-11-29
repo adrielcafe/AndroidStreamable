@@ -3,6 +3,8 @@ package cafe.adriel.androidstreamable.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cafe.adriel.androidstreamable.AndroidStreamableUtil;
+
 public class NewVideo {
 	private String shortCode;
 	private int status;
@@ -13,7 +15,7 @@ public class NewVideo {
 			newVideo.setShortCode(json.getString("shortcode"));
 		}
 		if(json.has("status")) {
-			newVideo.setStatus(json.getInt("status"));
+			newVideo.setStatus(AndroidStreamableUtil.toInt(json.getString("status")));
 		}
 		return newVideo;
 	}

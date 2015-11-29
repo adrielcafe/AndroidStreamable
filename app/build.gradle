@@ -24,7 +24,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
 
     compile project(":androidstreamable")
-//    compile 'com.github.adrielcafe:AndroidStreamable:0.4'
+//    compile 'com.github.adrielcafe:AndroidStreamable:0.5'
 }
 
 repositories {

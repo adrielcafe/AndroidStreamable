@@ -32,7 +32,7 @@ public class Video {
 			video.setMessage(json.getString("message"));
 		}
 		if(json.has("status")) {
-			video.setStatus(json.getInt("status"));
+			video.setStatus(AndroidStreamableUtil.toInt(json.getString("status")));
 		}
 		Map<String, VideoFile> hash = new HashMap<>();
 		for(Iterator<String> i = json.getJSONObject("files").keys(); i.hasNext(); ){

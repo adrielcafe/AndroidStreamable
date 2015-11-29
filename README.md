@@ -1,4 +1,5 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidStreamable-green.svg?style=true)](https://android-arsenal.com/details/1/2738)
+[![JitPack](https://img.shields.io/github/release/adrielcafe/AndroidStreamable.svg?label=JitPack)](https://jitpack.io/#adrielcafe/AndroidStreamable/)
 
 <p align="center" style="margin: 0">
   <img src="https://streamable.com/static/img/logo.png">
@@ -126,7 +127,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidStreamable:0.4'
+  compile 'com.github.adrielcafe:AndroidStreamable:0.5'
 }
 ```
 
@@ -140,6 +141,9 @@ https://streamable.com/documentation
 [ExoMedia](https://github.com/brianwernick/ExoMedia) is *"a utility class that wraps the [ExoPlayer](https://github.com/google/ExoPlayer) in to a standardized View and API much like the built in Android VideoView and MediaPlayer."*
 
 ## Changelog
+### 0.5
+* Fix int conversion
+
 ### 0.4
 * Replace `List<VideoFile>` by `Map<String, VideoFile>`, where String == video format
 * Fix exception when `json.getInt("status")` == null

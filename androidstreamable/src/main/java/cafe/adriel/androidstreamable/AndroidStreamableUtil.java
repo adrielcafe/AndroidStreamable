@@ -17,4 +17,12 @@ public class AndroidStreamableUtil {
 		return url;
 	}
 
+	public static int toInt(String intStr){
+		try {
+			return Integer.parseInt(intStr);
+		} catch (Exception e){
+			return -1;
+		}
+	}
+
 }
