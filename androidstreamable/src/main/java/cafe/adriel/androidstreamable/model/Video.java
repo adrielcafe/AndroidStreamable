@@ -1,21 +1,21 @@
 package cafe.adriel.androidstreamable.model;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
+
+import cafe.adriel.androidstreamable.AndroidStreamableUtil;
 
 public class Video {
 	private String title;
 	private String url;
 	private String thumbnailUrl;
 	private String message;
+	private Map<String, VideoFile> files;
 	private int status;
-	private List<VideoFile> files;
 
 	public static Video fromJson(JSONObject json) throws JSONException {
 		Video video = new Video();
@@ -23,22 +23,25 @@ public class Video {
 			video.setTitle(json.getString("title"));
 		}
 		if(json.has("url")) {
-			video.setUrl(json.getString("url"));
+			video.setUrl(AndroidStreamableUtil.fixUrl(json.getString("url")));
 		}
 		if(json.has("thumbnail_url")) {
-			video.setThumbnailUrl(json.getString("thumbnail_url"));
+			video.setThumbnailUrl(AndroidStreamableUtil.fixUrl(json.getString("thumbnail_url")));
 		}
 		if(json.has("message")) {
 			video.setMessage(json.getString("message"));
 		}
-		video.setStatus(json.getInt("status"));
-		video.setFiles(new ArrayList<VideoFile>());
+		if(json.has("status")) {
+			video.setStatus(json.getInt("status"));
+		}
+		Map<String, VideoFile> hash = new HashMap<>();
 		for(Iterator<String> i = json.getJSONObject("files").keys(); i.hasNext(); ){
 			String format = i.next();
 			JSONObject videoFileJson = json.getJSONObject("files").getJSONObject(format);
-			VideoFile videoFile = VideoFile.fromJson(videoFileJson, format);
-			video.getFiles().add(videoFile);
+			VideoFile videoFile = VideoFile.fromJson(videoFileJson);
+			hash.put(format, videoFile);
 		}
+		video.setFiles(hash);
 		return video;
 	}
 
@@ -82,11 +85,11 @@ public class Video {
 		this.status = status;
 	}
 
-	public List<VideoFile> getFiles() {
+	public Map<String, VideoFile> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<VideoFile> files) {
+	public void setFiles(Map<String, VideoFile> files) {
 		this.files = files;
 	}
 }

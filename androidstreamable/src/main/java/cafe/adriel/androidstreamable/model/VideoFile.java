@@ -3,16 +3,18 @@ package cafe.adriel.androidstreamable.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import cafe.adriel.androidstreamable.AndroidStreamableUtil;
+
 public class VideoFile {
-	private String format;
 	private String url;
 	private String width;
 	private String height;
 
-	public static VideoFile fromJson(JSONObject json, String format) throws JSONException {
+	public static VideoFile fromJson(JSONObject json) throws JSONException {
 		VideoFile videoFile = new VideoFile();
-		videoFile.setFormat(format);
-		videoFile.setUrl(json.getString("url"));
+		if(json.has("url")) {
+			videoFile.setUrl(AndroidStreamableUtil.fixUrl(json.getString("url")));
+		}
 		if(json.has("width")) {
 			videoFile.setWidth(json.getString("width"));
 		}
@@ -20,14 +22,6 @@ public class VideoFile {
 			videoFile.setHeight(json.getString("height"));
 		}
 		return videoFile;
-	}
-
-	public String getFormat() {
-		return format;
-	}
-
-	public void setFormat(String format) {
-		this.format = format;
 	}
 
 	public String getUrl() {

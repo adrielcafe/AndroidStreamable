@@ -16,7 +16,7 @@ AndroidStreamable.setCredentials("YOUR_STREAMABLE_USERNAME", "YOUR_STREAMABLE_PA
 ```
 
 ### Upload a video file
-Uploads a [Video](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) file to Streamable. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
+Uploads a [NewVideo](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) file to Streamable. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
 ```java
 InputStream is = getAssets().open("video.mp4");
 /* or
@@ -35,7 +35,7 @@ AndroidStreamable.uploadVideo(is /* or file */, title, new NewVideoCallback() {
 ```
 
 ### Import a video from a URL
-Imports a [Video](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) to Streamable from a URL. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
+Imports a [NewVideo](https://github.com/adrielcafe/AndroidStreamable/blob/master/androidstreamable/src/main/java/cafe/adriel/androidstreamable/model/NewVideo.java) to Streamable from a URL. Video files must be **smaller than 10GB** in size and **10 minutes in length**.
 ```java
 String url = "http://site.com/video.mp4";
 String title = "Import Example";
@@ -126,7 +126,7 @@ repositories {
 }
 
 dependencies {
-  compile 'com.github.adrielcafe:AndroidStreamable:0.3@aar'
+  compile 'com.github.adrielcafe:AndroidStreamable:0.4'
 }
 ```
 
@@ -137,11 +137,14 @@ dependencies {
 https://streamable.com/documentation
 
 ## Tip: Playing videos
-*"[ExoPlayer](http://developer.android.com/intl/pt-br/guide/topics/media/exoplayer.html) is an application level media player for Android. It provides an alternative to Android’s MediaPlayer API for playing audio and video both locally and over the Internet. ExoPlayer supports features not currently supported by Android’s MediaPlayer API, including DASH and SmoothStreaming adaptive playbacks. Unlike the MediaPlayer API, ExoPlayer is easy to customize and extend, and can be updated through Play Store application updates."*
-
-(Source: [GitHub's ExoPlayer page](https://github.com/google/ExoPlayer))
+[ExoMedia](https://github.com/brianwernick/ExoMedia) is *"a utility class that wraps the [ExoPlayer](https://github.com/google/ExoPlayer) in to a standardized View and API much like the built in Android VideoView and MediaPlayer."*
 
 ## Changelog
+### 0.4
+* Replace `List<VideoFile>` by `Map<String, VideoFile>`, where String == video format
+* Fix exception when `json.getInt("status")` == null
+* Add `http://` in url when starts with `//`
+
 ### 0.3
 * Add `title` for uploaded and imported videos (new in official API)
 * Remove `Video.url_root` (no longer available by official API)

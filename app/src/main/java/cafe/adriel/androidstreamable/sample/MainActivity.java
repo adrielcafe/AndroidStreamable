@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void exampleGetVideo(){
-		String shortCode = "ifjh";
+		String shortCode = "z7sw";
 		AndroidStreamable.getVideo(shortCode, new VideoCallback() {
 			@Override
 			public void onSuccess(int statusCode, Video video) {

@@ -9,8 +9,12 @@ public class NewVideo {
 
 	public static NewVideo fromJson(JSONObject json) throws JSONException {
 		NewVideo newVideo = new NewVideo();
-		newVideo.setShortCode(json.getString("shortcode"));
-		newVideo.setStatus(json.getInt("status"));
+		if(json.has("shortcode")) {
+			newVideo.setShortCode(json.getString("shortcode"));
+		}
+		if(json.has("status")) {
+			newVideo.setStatus(json.getInt("status"));
+		}
 		return newVideo;
 	}
 
